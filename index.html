@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copa de Jogos 🏆</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="trophy-icon">🏆</div>
+            <h1>Copa de Jogos</h1>
+            <p class="subtitle">Temporada 2026</p>
+            <div class="sync-status" id="sync-status">
+                <span class="sync-dot" id="sync-dot"></span>
+                <span id="sync-text">Conectando...</span>
+            </div>
+        </header>
+
+        <div class="progress-section">
+            <div class="progress-info">
+                <span id="progress-text">0 de 8 rodadas preenchidas</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="rodadas">🎮 Rodadas</button>
+            <button class="tab" data-tab="ranking">📊 Ranking</button>
+            <button class="tab" data-tab="estatisticas">📈 Estatísticas</button>
+            <button class="tab" data-tab="classificacao">🏅 Classificação</button>
+        </nav>
+
+        <section class="tab-content active" id="tab-rodadas">
+            <div class="rounds-grid" id="rounds-grid"></div>
+        </section>
+
+        <section class="tab-content" id="tab-ranking">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span> Ranking Geral</h2>
+                <div class="table-wrapper">
+                    <table class="ranking-table" id="ranking-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Jogador</th>
+                                <th>Pontos</th>
+                                <th>Vitórias</th>
+                                <th>2ºs</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranking-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="tab-content" id="tab-estatisticas">
+            <div class="stats-grid" id="stats-grid"></div>
+        </section>
+
+        <section class="tab-content" id="tab-classificacao">
+            <div class="podium" id="podium"></div>
+        </section>
+
+        <footer class="footer">
+            <button class="btn-danger" id="btn-clear">🗑️ Limpar Copa</button>
+            <button class="btn-pdf" id="btn-pdf">📄 Exportar PDF</button>
+            <button class="btn-json" id="btn-export-json">💾 Backup JSON</button>
+            <label class="btn-json btn-import-label" for="btn-import-json">📥 Restaurar JSON</label>
+            <input type="file" id="btn-import-json" accept=".json" hidden>
+        </footer>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <h3>⚠️ Confirmar</h3>
+            <p>Deseja realmente limpar todos os resultados da Copa? Esta ação não pode ser desfeita.</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="btn-cancel">Cancelar</button>
+                <button class="btn-danger" id="btn-confirm">Limpar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
