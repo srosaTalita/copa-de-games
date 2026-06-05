@@ -65,15 +65,22 @@
                 if (data && typeof data === 'object') {
                     var cleaned = {};
                     Object.keys(data).forEach(function (key) {
+                        var roundId = parseInt(key);
+                        if (isNaN(roundId)) return;
                         var val = data[key];
                         if (val && typeof val === 'object') {
-                            cleaned[key] = {};
+                            cleaned[roundId] = {};
                             Object.keys(val).forEach(function (pos) {
-                                cleaned[key][pos] = val[pos];
+                                cleaned[roundId][parseInt(pos)] = val[pos];
                             });
                         }
                     });
                     results = cleaned;
+                    saveToLocalStorage();
+                    refreshAll();
+                    updateSyncStatus('synced');
+                } else if (data === null) {
+                    results = {};
                     saveToLocalStorage();
                     refreshAll();
                     updateSyncStatus('synced');
@@ -93,8 +100,15 @@
 
     function saveToFirebase() {
         if (!firebaseReady || !dbRef) return;
+        var data = {};
+        Object.keys(results).forEach(function (roundId) {
+            data[roundId] = {};
+            Object.keys(results[roundId]).forEach(function (pos) {
+                data[roundId][pos] = results[roundId][pos];
+            });
+        });
         isSaving = true;
-        dbRef.set(results).then(function () {
+        dbRef.set(data).then(function () {
             isSaving = false;
             updateSyncStatus('synced');
         }).catch(function (err) {
